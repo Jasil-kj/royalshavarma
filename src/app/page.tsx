@@ -91,6 +91,7 @@ export default function Home() {
             muted 
             playsInline
             preload="auto"
+            onLoadedMetadata={(e) => { e.currentTarget.currentTime = 0.1; }}
             className="w-full h-full object-cover opacity-90"
           >
             <source src="/mobile-scroll-video.mp4" media="(max-width: 767px)" type="video/mp4" />
@@ -170,7 +171,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="md:col-span-7 relative flex justify-center items-center">
-          <div className="w-full max-w-lg aspect-[4/3] rounded-xl overflow-hidden bg-surface-container shadow-2xl">
+          <div className="w-full max-w-lg md:max-w-sm aspect-[4/3] rounded-xl overflow-hidden bg-surface-container shadow-2xl relative">
             <Image className="object-cover" src="/our-story.png" alt="Royal Shawarma Hub Story" fill sizes="(max-width: 768px) 100vw, 50vw" />
           </div>
           <GlassPanel className="absolute -bottom-8 -left-8 p-6 hidden md:block max-w-[280px]" delay={0.2}>
