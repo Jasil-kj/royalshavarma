@@ -4,6 +4,7 @@ import "./globals.css";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import CookieConsent from "@/components/ui/CookieConsent";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair-display",
@@ -80,6 +81,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <CookieConsent />
       </body>
     </html>
   );
