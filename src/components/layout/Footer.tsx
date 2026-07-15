@@ -9,11 +9,6 @@ const InstagramIcon = () => (
   </svg>
 );
 
-const FacebookIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  </svg>
-);
 
 export default function Footer() {
   return (
@@ -31,9 +26,6 @@ export default function Footer() {
           <div className="flex gap-6 mt-8">
             <a className="text-on-surface-variant hover:text-primary transition-colors duration-300 flex items-center gap-2" href="https://www.instagram.com/royalshawarmahub.ksa?igsh=MWZ4OWd6cGxmdmxzcQ==" target="_blank" rel="noopener noreferrer">
               <InstagramIcon />
-            </a>
-            <a className="text-on-surface-variant hover:text-primary transition-colors duration-300 flex items-center gap-2" href="#">
-              <FacebookIcon />
             </a>
           </div>
         </div>
