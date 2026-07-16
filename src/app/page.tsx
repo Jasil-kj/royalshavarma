@@ -15,71 +15,17 @@ import { useScroll, useSpring, useMotionValueEvent } from "framer-motion";
 export default function Home() {
   const containerRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [hasPlayed, setHasPlayed] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-
   useEffect(() => {
-    // If user refreshes the page and is already scrolled down, skip the lock
-    if (window.scrollY > 10) {
-      setHasPlayed(true);
+    // Auto-play the video on mount if possible
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay was prevented
+        });
+      }
     }
   }, []);
-
-  useEffect(() => {
-    if (!hasPlayed) {
-      // Lock scroll while the hero video hasn't finished
-      document.body.style.overflow = 'hidden';
-      
-      const startVideo = () => {
-        if (!isPlaying && videoRef.current) {
-          setIsPlaying(true);
-          const playPromise = videoRef.current.play();
-          
-          // Handle cases where the browser blocks the video from playing
-          if (playPromise !== undefined) {
-            playPromise.catch(() => {
-              setHasPlayed(true);
-              setIsPlaying(false);
-            });
-          }
-
-          videoRef.current.onended = () => {
-            setHasPlayed(true);
-            setIsPlaying(false);
-          };
-        }
-      };
-
-      const handleWheel = (e: WheelEvent) => {
-        if (e.deltaY > 0) startVideo(); // User scrolled down
-      };
-      
-      let touchStartY = 0;
-      const handleTouchStart = (e: TouchEvent) => { 
-        touchStartY = e.touches[0].clientY; 
-      };
-      
-      const handleTouchMove = (e: TouchEvent) => {
-        const touchEndY = e.touches[0].clientY;
-        if (touchStartY - touchEndY > 20) {
-          startVideo(); // User swiped up (attempting to scroll down)
-        }
-      };
-
-      window.addEventListener('wheel', handleWheel);
-      window.addEventListener('touchstart', handleTouchStart);
-      window.addEventListener('touchmove', handleTouchMove);
-
-      return () => {
-        document.body.style.overflow = '';
-        window.removeEventListener('wheel', handleWheel);
-        window.removeEventListener('touchstart', handleTouchStart);
-        window.removeEventListener('touchmove', handleTouchMove);
-      };
-    } else {
-      document.body.style.overflow = '';
-    }
-  }, [hasPlayed, isPlaying]);
 
   return (
     <>
@@ -90,8 +36,9 @@ export default function Home() {
             ref={videoRef}
             muted 
             playsInline
+            autoPlay
+            loop
             preload="auto"
-            onLoadedMetadata={(e) => { e.currentTarget.currentTime = 0.1; }}
             className="w-full h-full object-cover opacity-90"
           >
             <source src="/mobile-scroll-video.mp4" media="(max-width: 767px)" type="video/mp4" />
@@ -100,7 +47,7 @@ export default function Home() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
         
-        <div className={`relative z-10 text-center px-margin-safe max-w-4xl flex flex-col items-center justify-center h-full mx-auto transition-all duration-1000 ${hasPlayed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
+        <div className={`relative z-10 text-center px-margin-safe max-w-4xl flex flex-col items-center justify-center h-full mx-auto transition-all duration-1000 opacity-100 translate-y-0`}>
           <h1 className="font-display-lg text-display-lg md:text-[100px] text-on-background mb-stack-sm leading-tight">
             <RevealText text="Every Bite is " delay={0.2} />
             <span className="text-primary inline-block">
@@ -128,7 +75,7 @@ export default function Home() {
           </div>
         </div>
         
-          <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce z-20 transition-opacity duration-1000 ${!hasPlayed && !isPlaying ? 'opacity-50' : 'opacity-0 pointer-events-none'}`}>
+          <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce z-20 transition-opacity duration-1000 opacity-50 hover:opacity-100 cursor-pointer`} onClick={() => window.scrollTo({top: window.innerHeight, behavior: 'smooth'})}>
             <span className="font-label-caps text-label-caps">SCROLL TO DISCOVER</span>
             <span className="material-symbols-outlined">expand_more</span>
           </div>
