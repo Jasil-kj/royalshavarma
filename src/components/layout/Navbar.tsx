@@ -40,8 +40,8 @@ export default function Navbar() {
       }`}
     >
       <div className="flex justify-between items-center w-full px-margin-safe max-w-[1440px] mx-auto">
-        <Link href="/" className="flex items-center gap-2 group relative h-10 w-28 md:h-12 md:w-36">
-          <Image src="/logo.jpeg" alt="Royal Shawarma Logo" fill priority sizes="(max-width: 768px) 112px, 144px" className="rounded-md object-contain mix-blend-multiply" />
+        <Link href="/" className="flex items-center gap-2 group relative h-16 w-40 md:h-20 md:w-52">
+          <Image src="/logo.jpeg" alt="Royal Shawarma Logo" fill priority sizes="(max-width: 768px) 160px, 208px" className="rounded-md object-contain mix-blend-multiply" />
         </Link>
         
         {/* Desktop Menu */}
