@@ -50,7 +50,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.path}
-              className={`font-label-caps text-label-caps transition-colors duration-300 ${
+              className={`font-label-caps text-base lg:text-lg transition-colors duration-300 ${
                 pathname === link.path || (link.path !== '/' && pathname.startsWith(link.path))
                   ? "text-primary font-bold border-b-2 border-primary pb-1"
                   : "text-on-background/70 hover:text-primary"
@@ -81,7 +81,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.path}
-              className={`font-label-caps text-lg transition-colors duration-300 ${
+              className={`font-label-caps text-xl transition-colors duration-300 ${
                 pathname === link.path || (link.path !== '/' && pathname.startsWith(link.path))
                   ? "text-primary font-bold"
                   : "text-on-background/70"
