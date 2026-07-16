@@ -39,6 +39,7 @@ export default function Home() {
             autoPlay
             loop
             preload="auto"
+            poster="/brand-hero.png"
             className="w-full h-full object-cover opacity-90"
           >
             <source src="/mobile-scroll-video.mp4" media="(max-width: 767px)" type="video/mp4" />
